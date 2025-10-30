@@ -59,7 +59,7 @@ class pet:
                 healing=False
             
     """ def end(self):
-        print("Your pokemon has been put in the PC.") 
+         
         fin=input("Would you like to see the stats? y/n")
         if fin == "y":
             print(f"{self.name}: lvl:{self.lvl} type: {self.ptype}")
@@ -86,6 +86,7 @@ while playing:
     if contin=="y":
         playing=True
     if contin=="n":
+        print("Your pokemon has been put in the PC.")
         print("you didnt catch them all.")
         playing=False
     
