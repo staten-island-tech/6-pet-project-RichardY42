@@ -16,9 +16,13 @@ class pet:
                 print("Choose an option")
                 trick=input("Options: fly ")
                 if trick == "fly":
+                    exp+=10
                     print(f"{self.name} flew.")
                     self.energy-=1
                     print(f"energy:{self.energy}")
+
+
+
             if self.energy == 0:
                 self.state="unconscious"
                 print(f"{self.name} is {self.state}, heal them and then feed them in order to play.")
@@ -57,6 +61,21 @@ class pet:
             if self.inv==0:
                 print("you dont have any potions left.")
                 healing=False
+
+
+
+
+    def lvlup(self):
+        if 
+
+
+
+
+
+
+
+
+
             
     """ def end(self):
          
@@ -70,8 +89,10 @@ class pet:
 
 
 
-talonflame=pet("talonflame", "bird", 1, 10, 1, "awake")
-print(f"Congrats you have captured a pokemon choose an option to interact with it.") 
+#talonflame=pet("talonflame", "bird", 1, 10, 30, "awake")
+print(f"Congrats you have captured a pokemon choose an option to interact with it.")
+named=input("whats talonflames name? ")
+talonflame=pet(named, "bird", 1, 10, 1, "awake")
 playing=True
 while playing:
     
