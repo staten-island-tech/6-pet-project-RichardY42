@@ -1,13 +1,35 @@
 class pet:
-    def __init__(self, name, ptype, lvl, inv, energy, state):
+    def __init__(self, name, lvl, exp, inv, energy, state):
         self.name=name
-        self.ptype=ptype
         self.lvl=lvl
+        self.exp=exp
         self.inv=inv
         self.energy=energy
         self.state=state
+        
+    
+    
+    def start(self):
+        
+        playing=True
+        while playing:
+            
+            inichoose=input("play feed heal ")
+            if inichoose=="play":
+                talonflame.play()
+            if inichoose=="feed":
+                talonflame.feed()
+            if inichoose=="heal":
+                talonflame.heal()
+            contin=input("would you like to continue? y/n ")
+            if contin=="y":
+                playing=True
+            if contin=="n":
+                print("Your pokemon has been put in the PC.")
+                print("you didnt catch them all.")
+                playing=False
 
-
+    
     def play(self):
         playable=True
         while playable:
@@ -16,11 +38,13 @@ class pet:
                 print("Choose an option")
                 trick=input("Options: fly ")
                 if trick == "fly":
-                    exp+=10
+                    self.exp+=10
                     print(f"{self.name} flew.")
                     self.energy-=1
                     print(f"energy:{self.energy}")
-
+                """ if self.exp == 30:
+                    self.lvl+=1
+                    print(f"{named} has leveled up to level {self.lvl}") """
 
 
             if self.energy == 0:
@@ -64,12 +88,15 @@ class pet:
 
 
 
-
-    def lvlup(self):
-        if 
-
+    #def lvlup(self):
+       
 
 
+print(f"Congrats you have captured a pokemon choose an option to interact with it.")
+named=input("whats talonflames name? ")
+# def __init__(self, name, lvl, exp, inv, energy, state):
+talonflame=pet(named, 1, 0, 10, 10, "awake")
+talonflame.start()
 
 
 
@@ -77,42 +104,23 @@ class pet:
 
 
             
-    """ def end(self):
-         
-        fin=input("Would you like to see the stats? y/n")
-        if fin == "y":
-            print(f"{self.name}: lvl:{self.lvl} type: {self.ptype}")
-        if fin=="n":
-            print("you didnt catch them all.") """
+""" def end(self):
+        
+    fin=input("Would you like to see the stats? y/n")
+    if fin == "y":
+        print(f"{self.name}: lvl:{self.lvl} type: {self.ptype}")
+    if fin=="n":
+        print("you didnt catch them all.") """
 
 
 
 
 
 #talonflame=pet("talonflame", "bird", 1, 10, 30, "awake")
-print(f"Congrats you have captured a pokemon choose an option to interact with it.")
-named=input("whats talonflames name? ")
-talonflame=pet(named, "bird", 1, 10, 1, "awake")
-playing=True
-while playing:
-    
-    inichoose=input("play feed heal ")
-    if inichoose=="play":
-        talonflame.play()
-    if inichoose=="feed":
-        talonflame.feed()
-    if inichoose=="heal":
-        talonflame.heal()
-    contin=input("would you like to continue? y/n ")
-    if contin=="y":
-        playing=True
-    if contin=="n":
-        print("Your pokemon has been put in the PC.")
-        print("you didnt catch them all.")
-        playing=False
+
     
 
 
         
-    """ if inichoose=="end":
-    talonflame.end() """
+""" if inichoose=="end":
+talonflame.end() """
