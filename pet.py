@@ -1,3 +1,18 @@
+consumables=[
+    {
+        "name": "Leppa Berry",
+        "amount": 10,
+        "effect": "A Berry that can be fed to a Pokémon to restore 1 energy",
+    },
+    {
+        "name": "Max Potion",
+        "amount": 10,
+        "effect": "Fully restores Pokémon HP"
+    }
+]
+
+
+
 class pet:
     def __init__(self, name, lvl, exp, inv, energy, state):
         self.name=name
@@ -13,7 +28,7 @@ class pet:
         
         playing=True
         while playing:
-            
+            print("choose an option")
             inichoose=input("play feed heal ")
             if inichoose=="play":
                 talonflame.play()
@@ -33,8 +48,12 @@ class pet:
     def play(self):
         playable=True
         while playable:
-            
-            if self.state=="awake":
+            if self.energy == 0:
+                self.state="unconscious"
+                print(f"{self.name} is {self.state}, heal them and then feed them in order to play.")
+                playable=False
+
+            if self.energy>0:
                 print("Choose an option")
                 trick=input("Options: fly ")
                 if trick == "fly":
@@ -42,25 +61,24 @@ class pet:
                     print(f"{self.name} flew.")
                     self.energy-=1
                     print(f"energy:{self.energy}")
-                """ if self.exp == 30:
+                    print(f"exp:{self.exp}")
+                if self.exp == 30:
                     self.lvl+=1
-                    print(f"{named} has leveled up to level {self.lvl}") """
+                    print(f"{named} has leveled up to level {self.lvl}")
+                talonflame.start()
 
-
-            if self.energy == 0:
-                self.state="unconscious"
-                print(f"{self.name} is {self.state}, heal them and then feed them in order to play.")
-                playable=False
+            
         
         
     
     
     def feed(self):
         print("Choose an option")
-        food=input("Options: test ")
-        if food == "test" and self.state=="awake":
-            print(f"{self.name} ate a {food}.")
+        food=input("Option: Leppa Berry ")
+        if food == "Leppa Berry" and self.state=="awake":
+            print(f"{self.name} ate a {consumables[0]['name']}.")
             self.energy+=1
+            consumables[0]['amount']-=1
             print(f"energy:{self.energy}")
         
         if self.state=="unconscious":
@@ -75,11 +93,12 @@ class pet:
             
             heal=input(f"do you want to heal {self.name}? y/n ")
             if heal == "y" and self.inv>0:
-                self.inv-=1
+                consumables[1]['amount']-=1
                 self.state="awake"
-                print("You have used 1 max potion")
+                
                 print(f"{self.name} is {self.state}")
-                print(f"inventory: {self.inv} Max potion(s)")
+                print(f"You have used 1 {consumables[1]['name']}")
+                print(f"inventory: {consumables[1]['amount']} Max potion(s)")
             if heal == "n":
                 healing=False
             if self.inv==0:
@@ -88,14 +107,10 @@ class pet:
 
 
 
-    #def lvlup(self):
-       
-
-
 print(f"Congrats you have captured a pokemon choose an option to interact with it.")
 named=input("whats talonflames name? ")
 # def __init__(self, name, lvl, exp, inv, energy, state):
-talonflame=pet(named, 1, 0, 10, 10, "awake")
+talonflame=pet(named, 1, 0, consumables, 1, "awake")
 talonflame.start()
 
 
