@@ -29,20 +29,30 @@ class pet:
         playing=True
         while playing:
             print("choose an option")
-            inichoose=input("play feed heal ")
+            inichooseCAP=input("play feed heal ")
+            inichoose=inichooseCAP.lower()
+            
             if inichoose=="play":
                 talonflame.play()
             if inichoose=="feed":
                 talonflame.feed()
             if inichoose=="heal":
                 talonflame.heal()
-            contin=input("would you like to continue? y/n ")
+            if inichoose!="play" or "feed" or "heal":
+                print("invalid option")
+                playing=True
+            """ continCAP=input("would you like to continue? y/n ")
+            contin=continCAP.lower()
             if contin=="y":
                 playing=True
             if contin=="n":
                 print("Your pokemon has been put in the PC.")
                 print("you didnt catch them all.")
                 playing=False
+            if contin!="y"or"n":
+                print("invalid option")
+                continCAP
+ """
 
     
     def play(self):
@@ -55,7 +65,7 @@ class pet:
 
             if self.energy>0:
                 print("Choose an option")
-                trick=input("Options: fly ")
+                trick=input("Option: fly ")
                 if trick == "fly":
                     self.exp+=10
                     print(f"{self.name} flew.")
@@ -65,10 +75,9 @@ class pet:
                 if self.exp == 30:
                     self.lvl+=1
                     print(f"{named} has leveled up to level {self.lvl}")
-                talonflame.start()
+                #talonflame.start()
 
             
-        
         
     
     
@@ -92,7 +101,7 @@ class pet:
         while healing:
             
             heal=input(f"do you want to heal {self.name}? y/n ")
-            if heal == "y" and self.inv>0:
+            if heal == "y" and consumables[1]['amount']>0:
                 consumables[1]['amount']-=1
                 self.state="awake"
                 
