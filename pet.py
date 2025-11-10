@@ -29,18 +29,21 @@ class pet:
         playing=True
         while playing:
             print("choose an option")
-            inichooseCAP=input("play feed heal ")
+            inichooseCAP=input("play feed heal stats ")
             inichoose=inichooseCAP.lower()
-            
-            if inichoose=="play":
+            choice=inichoose
+            talonflame.choice()
+            """ if inichoose=="play":
                 talonflame.play()
             if inichoose=="feed":
                 talonflame.feed()
             if inichoose=="heal":
                 talonflame.heal()
-            if inichoose!="play" or "feed" or "heal":
+            if inichoose=="stats":
+                talonflame.stats() """
+            if inichoose!="play" or inichoose != "feed" or inichoose!= "heal":
                 print("invalid option")
-                playing=True
+                #playing=True
             """ continCAP=input("would you like to continue? y/n ")
             contin=continCAP.lower()
             if contin=="y":
@@ -113,7 +116,8 @@ class pet:
             if self.inv==0:
                 print("you dont have any potions left.")
                 healing=False
-
+    def stats(self):
+        print(f"Name: {self.name}, lvl: {self.lvl}, exp: {self.exp}, inv: {self.inv}, energy: {self.energy}, state: {self.state}")
 
 
 print(f"Congrats you have captured a pokemon choose an option to interact with it.")
