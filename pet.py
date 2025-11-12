@@ -29,20 +29,21 @@ class pet:
         playing=True
         while playing:
             print("choose an option")
-            inichooseCAP=input("play feed heal stats ")
-            inichoose=inichooseCAP.lower()
-            choice=inichoose
-            talonflame.choice()
-            """ if inichoose=="play":
+            initchooseCAP=input("play feed heal stats ")
+            initchoose=initchooseCAP.lower()
+            print(initchoose)
+            if initchoose=="play":
                 talonflame.play()
-            if inichoose=="feed":
+            elif initchoose=="feed":
                 talonflame.feed()
-            if inichoose=="heal":
+            elif initchoose=="heal":
                 talonflame.heal()
-            if inichoose=="stats":
-                talonflame.stats() """
-            if inichoose!="play" or inichoose != "feed" or inichoose!= "heal":
+            elif initchoose=="stats":
+                talonflame.stats()
+            elif initchoose!="play" or initchoose != "feed" or initchoose!= "heal" or initchoose!="stats":
                 print("invalid option")
+                
+
                 #playing=True
             """ continCAP=input("would you like to continue? y/n ")
             contin=continCAP.lower()
