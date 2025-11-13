@@ -6,7 +6,7 @@ consumables=[
     },
     {
         "name": "Max Potion",
-        "amount": 10,
+        "amount": 1,
         "effect": "Fully restores Pokémon HP"
     }
 ]
@@ -69,13 +69,17 @@ class pet:
 
             if self.energy>0:
                 print("Choose an option")
-                trick=input("Option: fly ")
+                trickCAP=input("Option: fly ")
+                trick=trickCAP.lower()
                 if trick == "fly":
                     self.exp+=10
                     print(f"{self.name} flew.")
                     self.energy-=1
                     print(f"energy:{self.energy}")
                     print(f"exp:{self.exp}")
+                    talonflame.start()
+                elif trick != "fly":
+                    print("invalid option")
                 if self.exp == 30:
                     self.lvl+=1
                     print(f"{named} has leveled up to level {self.lvl}")
@@ -87,13 +91,15 @@ class pet:
     
     def feed(self):
         print("Choose an option")
-        food=input("Option: Leppa Berry ")
-        if food == "Leppa Berry" and self.state=="awake":
+        foodCAP=input("Option: leppa berry ")
+        food=foodCAP.lower()
+        if food == "leppa berry" and self.state=="awake":
             print(f"{self.name} ate a {consumables[0]['name']}.")
             self.energy+=1
             consumables[0]['amount']-=1
             print(f"energy:{self.energy}")
-        
+        elif food!="leppa berry":
+            print("invalid option")
         if self.state=="unconscious":
             print(f"{self.name} is unconscious, heal them in order to feed.")
     
@@ -104,7 +110,11 @@ class pet:
         healing=True     
         while healing:
             
-            heal=input(f"do you want to heal {self.name}? y/n ")
+            healCAP=input(f"do you want to heal {self.name}? y/n ")
+            heal=healCAP.lower()
+            if consumables[1]['amount']<=0:
+                print("you dont have any potions left.")
+                healing=False
             if heal == "y" and consumables[1]['amount']>0:
                 consumables[1]['amount']-=1
                 self.state="awake"
@@ -114,9 +124,8 @@ class pet:
                 print(f"inventory: {consumables[1]['amount']} Max potion(s)")
             if heal == "n":
                 healing=False
-            if self.inv==0:
-                print("you dont have any potions left.")
-                healing=False
+            
+
     def stats(self):
         print(f"Name: {self.name}, lvl: {self.lvl}, exp: {self.exp}, inv: {self.inv}, energy: {self.energy}, state: {self.state}")
 
@@ -124,7 +133,7 @@ class pet:
 print(f"Congrats you have captured a pokemon choose an option to interact with it.")
 named=input("whats talonflames name? ")
 # def __init__(self, name, lvl, exp, inv, energy, state):
-talonflame=pet(named, 1, 0, consumables, 1, "awake")
+talonflame=pet(named, 1, 0, consumables, 5, "awake")
 talonflame.start()
 
 
