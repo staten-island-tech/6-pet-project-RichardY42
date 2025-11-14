@@ -1,12 +1,12 @@
 consumables=[
     {
         "name": "Leppa Berry",
-        "amount": 10,
+        "amount": 2,
         "effect": "A Berry that can be fed to a Pokémon to restore 1 energy",
     },
     {
         "name": "Max Potion",
-        "amount": 1,
+        "amount": 2,
         "effect": "Fully restores Pokémon HP"
     }
 ]
@@ -14,18 +14,18 @@ consumables=[
 
 
 class pet:
-    def __init__(self, name, lvl, exp, inv, energy, state):
+    def __init__(self, name, lvl, exp, inv, energy, state, denial):
         self.name=name
         self.lvl=lvl
         self.exp=exp
         self.inv=inv
         self.energy=energy
         self.state=state
-        
+        self.denial=denial
     
     
     def start(self):
-        
+
         playing=True
         while playing:
             print("choose an option")
@@ -42,7 +42,7 @@ class pet:
                 talonflame.stats()
             elif initchoose!="play" or initchoose != "feed" or initchoose!= "heal" or initchoose!="stats":
                 print("invalid option")
-                
+            
 
                 #playing=True
             """ continCAP=input("would you like to continue? y/n ")
@@ -60,29 +60,33 @@ class pet:
 
     
     def play(self):
-        playable=True
-        while playable:
-            if self.energy == 0:
-                self.state="unconscious"
-                print(f"{self.name} is {self.state}, heal them and then feed them in order to play.")
-                playable=False
+        #playable=True
+        #while playable:
+        
+        if self.state=="dead":
+            print("hes dead, let go")
+            talonflame.death()
+        if self.energy == 0:
+            self.state="unconscious"
+            print(f"{self.name} is {self.state}, heal them and then feed them in order to play.")
+            #playable=False
 
-            if self.energy>0:
-                print("Choose an option")
-                trickCAP=input("Option: fly ")
-                trick=trickCAP.lower()
-                if trick == "fly":
-                    self.exp+=10
-                    print(f"{self.name} flew.")
-                    self.energy-=1
-                    print(f"energy:{self.energy}")
-                    print(f"exp:{self.exp}")
-                    talonflame.start()
-                elif trick != "fly":
-                    print("invalid option")
-                if self.exp == 30:
-                    self.lvl+=1
-                    print(f"{named} has leveled up to level {self.lvl}")
+        if self.energy>0:
+            print("Choose an option")
+            trickCAP=input("Option: fly ")
+            trick=trickCAP.lower()
+            if trick == "fly":
+                self.exp+=10
+                print(f"{self.name} flew.")
+                self.energy-=1
+                print(f"energy:{self.energy}")
+                print(f"exp:{self.exp}")
+                talonflame.start()
+            elif trick != "fly":
+                print("invalid option")
+            if self.exp == 30:
+                self.lvl+=1
+                print(f"{named} has leveled up to level {self.lvl}")
                 #talonflame.start()
 
             
@@ -90,50 +94,73 @@ class pet:
     
     
     def feed(self):
+        #eating=True
+        #while eating:
+        if self.state=="dead":
+            print("hes dead, let go")
+            talonflame.death()
         print("Choose an option")
         foodCAP=input("Option: leppa berry ")
         food=foodCAP.lower()
+        if consumables[0]['amount']<=0:
+            print("you dont have any leppa berry left.")
+            #eating=False
         if food == "leppa berry" and self.state=="awake":
             print(f"{self.name} ate a {consumables[0]['name']}.")
             self.energy+=1
             consumables[0]['amount']-=1
+            print(consumables[0]['amount'])
             print(f"energy:{self.energy}")
+            talonflame.start()
         elif food!="leppa berry":
             print("invalid option")
         if self.state=="unconscious":
             print(f"{self.name} is unconscious, heal them in order to feed.")
-    
+        
 
     
     
     def heal(self): 
-        healing=True     
-        while healing:
+        #healing=True     
+        #while healing:
+        if self.state=="dead":
+            talonflame.death()
+        healCAP=input(f"do you want to heal {self.name}? y/n ")
+        heal=healCAP.lower()
+        if consumables[1]['amount']<=0:
+            print("you dont have any potions left.")
+            nochoiceCAP=input(f"would you like to put down {named}? y/n ")
+            nochoice=nochoiceCAP.lower()
+            if nochoice=="y":
+                self.state="dead"
+            if nochoice!="y":
+                print("invalid option")
+        elif heal == "y" and consumables[1]['amount']>0:
+            consumables[1]['amount']-=1
+            self.state="awake"
             
-            healCAP=input(f"do you want to heal {self.name}? y/n ")
-            heal=healCAP.lower()
-            if consumables[1]['amount']<=0:
-                print("you dont have any potions left.")
-                healing=False
-            if heal == "y" and consumables[1]['amount']>0:
-                consumables[1]['amount']-=1
-                self.state="awake"
-                
-                print(f"{self.name} is {self.state}")
-                print(f"You have used 1 {consumables[1]['name']}")
-                print(f"inventory: {consumables[1]['amount']} Max potion(s)")
-            if heal == "n":
-                healing=False
-            
+            print(f"{self.name} is {self.state}")
+            print(f"You have used 1 {consumables[1]['name']}")
+            print(f"inventory: {consumables[1]['amount']} Max potion(s)")
+        elif heal == "n":
+            talonflame.start()
+        elif heal!="y" or heal!="n":
+            print("invalid option")
 
     def stats(self):
         print(f"Name: {self.name}, lvl: {self.lvl}, exp: {self.exp}, inv: {self.inv}, energy: {self.energy}, state: {self.state}")
 
-
+    def death(self):
+        spiralCAP=input("y/n ")
+        spiral=spiralCAP.lower()
+        if spiral=="y":
+            print(f"Name: {self.name}, lvl: {self.lvl}, exp: {self.exp}, inv: {self.inv}, energy: {self.energy}, state: {self.state}")
+        if spiral=="n":
+            input("you have to let go ")
 print(f"Congrats you have captured a pokemon choose an option to interact with it.")
 named=input("whats talonflames name? ")
 # def __init__(self, name, lvl, exp, inv, energy, state):
-talonflame=pet(named, 1, 0, consumables, 5, "awake")
+talonflame=pet(named, 1, 0, consumables, 5, "awake",0)
 talonflame.start()
 
 
