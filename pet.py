@@ -1,17 +1,17 @@
 consumables=[
     {
         "name": "Leppa Berry",
-        "amount": 2,
+        "amount": 100,
         "effect": "A Berry that can be fed to a Pokémon to restore 1 energy",
     },
     {
         "name": "Max Potion",
-        "amount": 2,
+        "amount": 10,
         "effect": "Fully restores Pokémon HP"
     }
 ]
 
-
+lvlsys=[3,8,15,24,35,48,63,80]
 
 class pet:
     def __init__(self, name, lvl, exp, inv, energy, state, denial):
@@ -65,7 +65,7 @@ class pet:
         
         if self.state=="dead":
             print("hes dead, let go")
-            talonflame.death()
+            
         if self.energy == 0:
             self.state="unconscious"
             print(f"{self.name} is {self.state}, heal them and then feed them in order to play.")
@@ -75,19 +75,22 @@ class pet:
             print("Choose an option")
             trickCAP=input("Option: fly ")
             trick=trickCAP.lower()
+            
+                #talonflame.start()
             if trick == "fly":
-                self.exp+=10
+                self.exp+=1
                 print(f"{self.name} flew.")
                 self.energy-=1
                 print(f"energy:{self.energy}")
                 print(f"exp:{self.exp}")
+                for i in range(self.exp):
+                    if i in self.exp == i in lvlsys:
+                        self.lvl+=1
+                        print(f"{named} has leveled up to level {self.lvl}")
                 talonflame.start()
             elif trick != "fly":
                 print("invalid option")
-            if self.exp == 30:
-                self.lvl+=1
-                print(f"{named} has leveled up to level {self.lvl}")
-                #talonflame.start()
+        
 
             
         
@@ -98,7 +101,7 @@ class pet:
         #while eating:
         if self.state=="dead":
             print("hes dead, let go")
-            talonflame.death()
+            
         print("Choose an option")
         foodCAP=input("Option: leppa berry ")
         food=foodCAP.lower()
@@ -124,17 +127,20 @@ class pet:
         #healing=True     
         #while healing:
         if self.state=="dead":
-            talonflame.death()
+            print("hes dead, let go")
         healCAP=input(f"do you want to heal {self.name}? y/n ")
         heal=healCAP.lower()
-        if consumables[1]['amount']<=0:
+        if consumables[1]['amount']<=0 and self.state=="unconscious":
             print("you dont have any potions left.")
             nochoiceCAP=input(f"would you like to put down {named}? y/n ")
             nochoice=nochoiceCAP.lower()
             if nochoice=="y":
                 self.state="dead"
-            if nochoice!="y":
+            elif nochoice!="y":
                 print("invalid option")
+        elif consumables[1]['amount']<=0 and self.state!="unconscious":
+            print("your broke out of potion")
+            talonflame.start()
         elif heal == "y" and consumables[1]['amount']>0:
             consumables[1]['amount']-=1
             self.state="awake"
@@ -150,13 +156,9 @@ class pet:
     def stats(self):
         print(f"Name: {self.name}, lvl: {self.lvl}, exp: {self.exp}, inv: {self.inv}, energy: {self.energy}, state: {self.state}")
 
-    def death(self):
-        spiralCAP=input("y/n ")
-        spiral=spiralCAP.lower()
-        if spiral=="y":
-            print(f"Name: {self.name}, lvl: {self.lvl}, exp: {self.exp}, inv: {self.inv}, energy: {self.energy}, state: {self.state}")
-        if spiral=="n":
-            input("you have to let go ")
+    
+        
+        
 print(f"Congrats you have captured a pokemon choose an option to interact with it.")
 named=input("whats talonflames name? ")
 # def __init__(self, name, lvl, exp, inv, energy, state):
@@ -164,7 +166,12 @@ talonflame=pet(named, 1, 0, consumables, 5, "awake",0)
 talonflame.start()
 
 
-
+""" spiralCAP=input("y/n ")
+        spiral=spiralCAP.lower()
+        if spiral=="y":
+            print(f"Name: {self.name}, lvl: {self.lvl}, exp: {self.exp}, inv: {self.inv}, energy: {self.energy}, state: {self.state}")
+        if spiral=="n":
+            input("you have to let go ") """
 
 
 
