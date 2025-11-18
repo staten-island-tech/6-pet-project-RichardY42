@@ -84,12 +84,13 @@ class pet:
                 print(f"energy:{self.energy}")
                 print(f"exp:{self.exp}")
                 for i in range(self.exp):
-                    if i in self.exp == i in lvlsys:
+                    if (i in self.exp) == (i in lvlsys):
                         self.lvl+=1
                         print(f"{named} has leveled up to level {self.lvl}")
                 talonflame.start()
             elif trick != "fly":
                 print("invalid option")
+                talonflame.play()
         
 
             
@@ -101,7 +102,8 @@ class pet:
         #while eating:
         if self.state=="dead":
             print("hes dead, let go")
-            
+        if self.state=="unconscious":
+            print(f"{self.name} is unconscious, heal them in order to feed.")
         print("Choose an option")
         foodCAP=input("Option: leppa berry ")
         food=foodCAP.lower()
@@ -117,8 +119,7 @@ class pet:
             talonflame.start()
         elif food!="leppa berry":
             print("invalid option")
-        if self.state=="unconscious":
-            print(f"{self.name} is unconscious, heal them in order to feed.")
+        
         
 
     
