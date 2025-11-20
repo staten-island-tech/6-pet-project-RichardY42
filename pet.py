@@ -14,14 +14,14 @@ consumables=[
 lvlsys=[3,8,15,24,35,48,63,80]
 
 class pet:
-    def __init__(self, name, lvl, exp, inv, energy, state, denial):
+    def __init__(self, name, lvl, exp, inv, energy, state, day):
         self.name=name
         self.lvl=lvl
         self.exp=exp
         self.inv=inv
         self.energy=energy
         self.state=state
-        self.denial=denial
+        self.day=day
     
     
     def start(self):
@@ -42,8 +42,16 @@ class pet:
                 talonflame.stats()
             elif initchoose!="play" or initchoose != "feed" or initchoose!= "heal" or initchoose!="stats":
                 print("invalid option")
-            
-
+            if self.state=="dead":
+                playing == False
+                deathinterCAP=input("choose an option: death ")
+                deathinter=deathinterCAP.lower()
+                if deathinter=="death":
+                    talonflame.stats()
+                    print(f"you didnt catch them all. Days: {self.day}")
+                elif deathinter!="death":
+                    print ("invalid option")
+                
                 #playing=True
             """ continCAP=input("would you like to continue? y/n ")
             contin=continCAP.lower()
@@ -64,7 +72,7 @@ class pet:
         #while playable:
         
         if self.state=="dead":
-            print("hes dead, let go")
+            return "hes dead, let go"
             
         if self.energy == 0:
             self.state="unconscious"
@@ -83,10 +91,11 @@ class pet:
                 self.energy-=1
                 print(f"energy:{self.energy}")
                 print(f"exp:{self.exp}")
-                for i in range(self.exp):
-                    if (i in self.exp) == (i in lvlsys):
+                for i in range(len(lvlsys)):
+                    if self.exp == i in lvlsys:
                         self.lvl+=1
                         print(f"{named} has leveled up to level {self.lvl}")
+                
                 talonflame.start()
             elif trick != "fly":
                 print("invalid option")
@@ -101,9 +110,10 @@ class pet:
         #eating=True
         #while eating:
         if self.state=="dead":
-            print("hes dead, let go")
+            return "hes dead, let go"
         if self.state=="unconscious":
             print(f"{self.name} is unconscious, heal them in order to feed.")
+            return
         print("Choose an option")
         foodCAP=input("Option: leppa berry ")
         food=foodCAP.lower()
@@ -114,7 +124,7 @@ class pet:
             print(f"{self.name} ate a {consumables[0]['name']}.")
             self.energy+=1
             consumables[0]['amount']-=1
-            print(consumables[0]['amount'])
+            print(f"You have: {consumables[0]['amount']} leppa berry(s) left")
             print(f"energy:{self.energy}")
             talonflame.start()
         elif food!="leppa berry":
@@ -128,7 +138,7 @@ class pet:
         #healing=True     
         #while healing:
         if self.state=="dead":
-            print("hes dead, let go")
+            return "hes dead, let go"
         healCAP=input(f"do you want to heal {self.name}? y/n ")
         heal=healCAP.lower()
         if consumables[1]['amount']<=0 and self.state=="unconscious":
@@ -145,7 +155,8 @@ class pet:
         elif heal == "y" and consumables[1]['amount']>0:
             consumables[1]['amount']-=1
             self.state="awake"
-            
+            print ("it will take a day")
+            self.day+=1
             print(f"{self.name} is {self.state}")
             print(f"You have used 1 {consumables[1]['name']}")
             print(f"inventory: {consumables[1]['amount']} Max potion(s)")

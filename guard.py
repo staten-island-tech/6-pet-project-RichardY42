@@ -18,22 +18,15 @@ def isvalid(email, paswor):
         return "the email and password is not valid, must be string"
     if "@" not in email:
         return "Not valid email, nust have @ symbol"
-    amount=0
-    for i in range(len(paswor)):
-        amount+=1
-    print(amount)
-    if amount<8:
+    if len(paswor)<8:
         return "your password must be at least eight characters long"
     number=False
     if not any(i.isdigit() for i in paswor):
         return "your password must have a number"
-    if not any(i.isupper() for i in paswor)
+    if not any(i.isupper() for i in paswor):
+        return "your password must have a uppercase letter"
 
 
-
-
-
-    #print("test")
     
     return {"email":email, "password":paswor}
-print(isvalid("test123@gamer.com","qwertyuiop123"))
+print(isvalid("test123@gamer.com","F2d8layf"))
