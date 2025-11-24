@@ -65,7 +65,15 @@ class pet:
                 print("invalid option")
                 continCAP
  """
-
+    def lvlingsys(self):
+        self.lvl=1
+        checking= True
+        while checking:
+        for i in range(len(lvlsys)):
+                        if self.exp >= i in lvlsys:
+                            self.lvl+=1
+                            
+                            print(f"{named} is at level {self.lvl}")
     
     def play(self):
         #playable=True
@@ -81,23 +89,40 @@ class pet:
 
         if self.energy>0:
             print("Choose an option")
-            trickCAP=input("Option: fly ")
+            trickCAP=input("Options: aerial ace, flare blitz, brave bird, steel wing ")
             trick=trickCAP.lower()
             
                 #talonflame.start()
-            if trick == "fly":
-                self.exp+=1
-                print(f"{self.name} flew.")
+            if trick == "aerial ace":
+                self.exp+=2
+                print(f"{self.name} used {trick}.")
                 self.energy-=1
                 print(f"energy:{self.energy}")
                 print(f"exp:{self.exp}")
-                for i in range(len(lvlsys)):
-                    if self.exp == i in lvlsys:
-                        self.lvl+=1
-                        print(f"{named} has leveled up to level {self.lvl}")
+                talonflame.lvlingsys()
+            elif trick == "flare blitz":
+                self.exp+=1
+                print(f"{self.name} used {trick}.")
+                self.energy-=1
+                print(f"energy:{self.energy}")
+                print(f"exp:{self.exp}")
+                talonflame.lvlingsys()
+            elif trick == "brave bird":
+                self.exp+=4
+                print(f"{self.name} used {trick}.")
+                self.energy-=1
+                print(f"energy:{self.energy}")
+                print(f"exp:{self.exp}")
+                talonflame.lvlingsys()
+            elif trick == "steel wing":
+                self.exp+=3
+                print(f"{self.name} used {trick}.")
+                self.energy-=1
+                print(f"energy:{self.energy}")
+                print(f"exp:{self.exp}")
+                talonflame.lvlingsys()
                 
-                talonflame.start()
-            elif trick != "fly":
+            elif trick != "aerial ace" or "steel wing" or "flare blitz" or "brave bird":
                 print("invalid option")
                 talonflame.play()
         

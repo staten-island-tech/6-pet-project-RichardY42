@@ -20,7 +20,6 @@ def isvalid(email, paswor):
         return "Not valid email, nust have @ symbol"
     if len(paswor)<8:
         return "your password must be at least eight characters long"
-    number=False
     if not any(i.isdigit() for i in paswor):
         return "your password must have a number"
     if not any(i.isupper() for i in paswor):
