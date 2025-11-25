@@ -11,7 +11,7 @@ consumables=[
     }
 ]
 
-lvlsys=[3,8,15,24,35,48,63,80]
+lvlsys=[3,8,17,24,35,48,63,80]
 
 class pet:
     def __init__(self, name, lvl, exp, inv, energy, state, day):
@@ -28,7 +28,7 @@ class pet:
 
         playing=True
         while playing:
-            print("choose an option")
+            print("choose an interaction option")
             initchooseCAP=input("play feed heal stats ")
             initchoose=initchooseCAP.lower()
             print(initchoose)
@@ -67,13 +67,16 @@ class pet:
  """
     def lvlingsys(self):
         self.lvl=1
-        checking= True
-        while checking:
         for i in range(len(lvlsys)):
-                        if self.exp >= i in lvlsys:
-                            self.lvl+=1
+            if self.exp not in lvlsys and not self.exp > lvlsys[i]:
+                print(f"{named} is at level {self.lvl}")
+                return 
+            if self.exp >= lvlsys[i]:
+                self.lvl+=1
+        print(f"test {named} is at level {self.lvl}")
+        return
                             
-                            print(f"{named} is at level {self.lvl}")
+                            
     
     def play(self):
         #playable=True
@@ -88,8 +91,9 @@ class pet:
             #playable=False
 
         if self.energy>0:
-            print("Choose an option")
-            trickCAP=input("Options: aerial ace, flare blitz, brave bird, steel wing ")
+            print(f"Choose a move for {named} to use")
+            trickCAP=input("Options:",
+                            aerial ace, flare blitz, brave bird, steel wing ")
             trick=trickCAP.lower()
             
                 #talonflame.start()
