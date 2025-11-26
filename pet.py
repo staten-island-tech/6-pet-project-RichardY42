@@ -23,117 +23,73 @@ class pet:
         self.state=state
         self.day=day
     
-    
-    def start(self):
-
-        playing=True
-        while playing:
-            print("choose an interaction option")
-            initchooseCAP=input("play feed heal stats ")
-            initchoose=initchooseCAP.lower()
-            print(initchoose)
-            if initchoose=="play":
-                talonflame.play()
-            elif initchoose=="feed":
-                talonflame.feed()
-            elif initchoose=="heal":
-                talonflame.heal()
-            elif initchoose=="stats":
-                talonflame.stats()
-            elif initchoose!="play" or initchoose != "feed" or initchoose!= "heal" or initchoose!="stats":
-                print("invalid option")
-            if self.state=="dead":
-                playing == False
-                deathinterCAP=input("choose an option: death ")
-                deathinter=deathinterCAP.lower()
-                if deathinter=="death":
-                    talonflame.stats()
-                    print(f"you didnt catch them all. Days: {self.day}")
-                elif deathinter!="death":
-                    print ("invalid option")
-                
-                #playing=True
-            """ continCAP=input("would you like to continue? y/n ")
-            contin=continCAP.lower()
-            if contin=="y":
-                playing=True
-            if contin=="n":
-                print("Your pokemon has been put in the PC.")
-                print("you didnt catch them all.")
-                playing=False
-            if contin!="y"or"n":
-                print("invalid option")
-                continCAP
- """
     def lvlingsys(self):
         self.lvl=1
         for i in range(len(lvlsys)):
             if self.exp not in lvlsys and not self.exp > lvlsys[i]:
-                print(f"{named} is at level {self.lvl}")
+                print(f"{self.name} is at level {self.lvl}")
                 return 
             if self.exp >= lvlsys[i]:
                 self.lvl+=1
-        print(f"test {named} is at level {self.lvl}")
+        print(f"test {self.name} is at level {self.lvl}")
         return
                             
-                            
-    
-    def play(self):
-        #playable=True
-        #while playable:
-        
+    def play(self):    
         if self.state=="dead":
             return "hes dead, let go"
-            
-        if self.energy == 0:
+        if self.energy <= 0:
             self.state="unconscious"
             print(f"{self.name} is {self.state}, heal them and then feed them in order to play.")
             #playable=False
-
         if self.energy>0:
-            print(f"Choose a move for {named} to use")
-            trickCAP=input("Options:",
-                            aerial ace, flare blitz, brave bird, steel wing ")
-            trick=trickCAP.lower()
+            print(f"Choose a move, 1,2,3, or 4, for {self.name} to use:"),
+            print("Options:",
+            "1. aerial ace", 
+            "2. flare blitz", 
+            "3. brave bird",
+            "4. steel wing" )
+            tricknotint=input("choice: ")
             
-                #talonflame.start()
-            if trick == "aerial ace":
+            if not tricknotint.isdigit():
+                print("invalid option: not a number")
+                talonflame.play()
+                return
+            elif tricknotint.isdigit():
+                trick=int(tricknotint)
+            elif trick != 1 or trick != 2 or trick != 3 or trick != 4:
+                print("invalid option: not a valid number")
+                talonflame.play()
+                return
+            elif trick == 1:
                 self.exp+=2
-                print(f"{self.name} used {trick}.")
-                self.energy-=1
+                print(f"{self.name} used aerial ace.")
+                self.energy-=2
                 print(f"energy:{self.energy}")
                 print(f"exp:{self.exp}")
                 talonflame.lvlingsys()
-            elif trick == "flare blitz":
+            elif trick == 2:
                 self.exp+=1
-                print(f"{self.name} used {trick}.")
+                print(f"{self.name} used flare blitz.")
                 self.energy-=1
                 print(f"energy:{self.energy}")
                 print(f"exp:{self.exp}")
                 talonflame.lvlingsys()
-            elif trick == "brave bird":
+            elif trick == 3:
                 self.exp+=4
-                print(f"{self.name} used {trick}.")
-                self.energy-=1
+                print(f"{self.name} used brave bird.")
+                self.energy-=4
                 print(f"energy:{self.energy}")
                 print(f"exp:{self.exp}")
                 talonflame.lvlingsys()
-            elif trick == "steel wing":
+            elif trick == 4:
                 self.exp+=3
-                print(f"{self.name} used {trick}.")
-                self.energy-=1
+                print(f"{self.name} used steel wing.")
+                self.energy-=3
                 print(f"energy:{self.energy}")
                 print(f"exp:{self.exp}")
                 talonflame.lvlingsys()
                 
-            elif trick != "aerial ace" or "steel wing" or "flare blitz" or "brave bird":
-                print("invalid option")
-                talonflame.play()
-        
-
             
-        
-    
     
     def feed(self):
         #eating=True
@@ -159,10 +115,6 @@ class pet:
         elif food!="leppa berry":
             print("invalid option")
         
-        
-
-    
-    
     def heal(self): 
         #healing=True     
         #while healing:
@@ -197,43 +149,36 @@ class pet:
     def stats(self):
         print(f"Name: {self.name}, lvl: {self.lvl}, exp: {self.exp}, inv: {self.inv}, energy: {self.energy}, state: {self.state}")
 
-    
-        
+    def start(self):
+            playing=True
+            while playing:
+                print("choose an interaction option")
+                initchooseCAP=input("play feed heal stats ")
+                initchoose=initchooseCAP.lower()
+                print(initchoose)
+                if initchoose=="play":
+                    talonflame.play()
+                elif initchoose=="feed":
+                    talonflame.feed()
+                elif initchoose=="heal":
+                    talonflame.heal()
+                elif initchoose=="stats":
+                    talonflame.stats()
+                elif initchoose!="play" or initchoose != "feed" or initchoose!= "heal" or initchoose!="stats":
+                    print("invalid option")
+                if self.state=="dead":
+                    playing == False
+                    deathinterCAP=input("choose an option: death ")
+                    deathinter=deathinterCAP.lower()
+                    if deathinter=="death":
+                        talonflame.stats()
+                        print(f"you didnt catch them all. Days: {self.day}")
+                    elif deathinter!="death":
+                        print ("invalid option")
+                    
         
 print(f"Congrats you have captured a pokemon choose an option to interact with it.")
 named=input("whats talonflames name? ")
 # def __init__(self, name, lvl, exp, inv, energy, state):
 talonflame=pet(named, 1, 0, consumables, 5, "awake",0)
 talonflame.start()
-
-
-""" spiralCAP=input("y/n ")
-        spiral=spiralCAP.lower()
-        if spiral=="y":
-            print(f"Name: {self.name}, lvl: {self.lvl}, exp: {self.exp}, inv: {self.inv}, energy: {self.energy}, state: {self.state}")
-        if spiral=="n":
-            input("you have to let go ") """
-
-
-
-            
-""" def end(self):
-        
-    fin=input("Would you like to see the stats? y/n")
-    if fin == "y":
-        print(f"{self.name}: lvl:{self.lvl} type: {self.ptype}")
-    if fin=="n":
-        print("you didnt catch them all.") """
-
-
-
-
-
-#talonflame=pet("talonflame", "bird", 1, 10, 30, "awake")
-
-    
-
-
-        
-""" if inichoose=="end":
-talonflame.end() """
