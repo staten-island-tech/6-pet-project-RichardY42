@@ -56,7 +56,7 @@ class pet:
                 return
             elif tricknotint.isdigit():
                 trick=int(tricknotint)
-            elif trick != 1 or trick != 2 or trick != 3 or trick != 4:
+            if trick != 1 or trick != 2 or trick != 3 or trick != 4:
                 print("invalid option: not a valid number")
                 talonflame.play()
                 return
