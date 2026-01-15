@@ -107,16 +107,12 @@ class Class:
         for index, i in enumerate(weapontype, start=1): 
             print(f"{index}. {i}")
         choice=int(input("type the #: "))
-        #subtract the previously chosen weapon stats from character stats
         self.inv.append(weapontype[choice-1])
-        
         print(f"Current Inventory: {self.inv}")
     
     def equipping(self):
-        #Switching Equipped Weapon(SEW)
-        self.phydmg*0.1+1
-        self.rngdmg*0.1+1
-        self.mgcdmg*0.1+1
+        
+        
         
         print("Which weapon do you wanna equip?")
         for index, i in enumerate(self.inv, start=1): 
@@ -152,14 +148,23 @@ class Class:
         print(f"currently equipped: {self.equipped}")
 
     def smithy(self):
-        upgradecounter=0
         if self.equipped['name']==weapontype[0]['name']:
             print(f"if you wanna upgrade your current weapon you will need enough resources: {10} {resources[0]['name']}")
-        if self.equipped['name']==weapontype[1]['name']:
+            answer=input("do you have the required materials? y/n ").lower()
+        elif self.equipped['name']==weapontype[1]['name']:
             print(f"if you wanna upgrade your current weapon you will need enough resources: {10} {resources[1]['name']}")
-        if self.equipped['name']==weapontype[2]['name']:
+            answer=input("do you have the required materials? y/n ").lower()
+        elif self.equipped['name']==weapontype[2]['name']:
             print(f"if you wanna upgrade your current weapon you will need enough resources: {10} {resources[2]['name']}")
-    #def genstore():
+            answer=input("do you have the required materials? y/n ").lower()
+        if answer == "n":
+            return
+        if answer == "y":
+            self.inv
+    def stats(self):
+        print(f"Money: {self.money},Hp: {self.hp}, Phydmg: {self.phydmg}, Rngdmg: {self.rngdmg}, Mgcdmg: {self.mgcdmg}")
+
+
     
         
 self = Class("John", 1, 1, 1, 0, 0, 0, [], [], [], [])
@@ -200,42 +205,14 @@ while True:
         print("Class Chosen: Mage")
         break
 
-
-#_________________________________________________________________________________________
 while True:
     user_input = input("x")
     if user_input== "x":
         self.weaponshop()
         self.equipping()
 
-#using this(below) to help
-# Word Problem: The School Portal Login System
-# Your school is creating a new online portal for students to sign up for accounts. The login system needs a function that accepts two pieces of information from the user:
-# Their email address
-# Their password
-# Before creating the new account, the function must verify that the email and password follow school rules:
-# The email must be a string and must contain an "@" symbol.
-# The password must also be a string.
-# The password must be at least 8 characters long.
-# The password must include at least one number.
-# The password must include at least one uppercase letter.
-# If ANY of these rules are broken, the function should return an error message explaining what went wrong.
-# If EVERYTHING is good, the function should return a dictionary that represents the newly created user.
+while True:
+    userinput = input("y")
+    if userinput== "y":
+        self.stats()
 
-
-""" def isvalid(email, paswor):
-    if not isinstance(email,str) or not isinstance(paswor,str):
-        return "the email and password is not valid, must be string"
-    if "@" not in email:
-        return "Not valid email, nust have @ symbol"
-    if len(paswor)<8:
-        return "your password must be at least eight characters long"
-    if not any(i.isdigit() for i in paswor):
-        return "your password must have a number"
-    if not any(i.isupper() for i in paswor):
-        return "your password must have a uppercase letter"
-
-
-    
-    return {"email":email, "password":paswor}
-print(isvalid("test123@gamer.com","F2d8layf")) """
